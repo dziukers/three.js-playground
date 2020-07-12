@@ -64,7 +64,7 @@ export class EngineService implements OnDestroy {
     this.scene.add(new THREE.AmbientLight(0xbbbbbb));
 
     // SURFACE
-    const groundTexture = this.loader.load('../../assets/grasslight-big.jpg');
+    const groundTexture = this.loader.load('./assets/grasslight-big.jpg');
     groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
     groundTexture.repeat.set(25, 25);
     groundTexture.anisotropy = 16;
@@ -117,7 +117,7 @@ export class EngineService implements OnDestroy {
     this.dragControls.addEventListener('drag', (event) =>
       this.socketService.sendUserPosition(event.object.position)
     );
-    // this.generateConnectedUsers();
+    this.generateConnectedUsers();
 
     this.socketService
       .subscribeToUserChanges()
