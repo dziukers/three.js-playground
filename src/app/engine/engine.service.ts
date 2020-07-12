@@ -117,13 +117,20 @@ export class EngineService implements OnDestroy {
     this.dragControls.addEventListener('drag', (event) =>
       this.socketService.sendUserPosition(event.object.position)
     );
+
+    // GENERATE CONNECTED USERS
+
     this.generateConnectedUsers();
 
+    // LISTEN TO USER CHANGES
     this.socketService
       .subscribeToUserChanges()
       .subscribe(({ userId, position }) => {
+        console.log(position);
+        const { x, y, z } = position;
         if (this.otherUsers[userId]) {
-          this.otherUsers[userId].position.set(position);
+          this.otherUsers[userId].position.set(x, y, z);
+          console.log(this.otherUsers[userId]);
         } else {
           const cube = this.createNewCube(0x00aa00, position);
           this.otherUsers[userId] = cube;
